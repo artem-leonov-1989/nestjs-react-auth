@@ -23,7 +23,7 @@ export class AuthService {
       id,
       username,
       name,
-      access_token: this.jwtService.sign({ id: user.id, username: user.username })
+      access_token: this.jwtService.sign({ id: user.id, username: user.username, name: user.name})
     }
   }
 }
