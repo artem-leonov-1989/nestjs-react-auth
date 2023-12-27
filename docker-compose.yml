@@ -1,4 +1,7 @@
 version: '1'
+networks:
+  dockerNetwork:
+name: "fullstack-docker"
 
 services:
   postgres:
@@ -13,6 +16,33 @@ services:
     ports:
       - 5432:5432
     restart: unless-stopped
+    networks:
+      - dockerNetwork
+
+  backend:
+    container_name: "server-nest"
+    build:
+      context: ./server
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - dockerNetwork
+
+  frontend:
+    container_name: "client-react"
+    build:
+      context: ./client
+    depends_on:
+      - backend
+    restart: unless-stopped
+    ports:
+      - 5173:5173
+    networks:
+      - dockerNetwork
+
 
 volumes:
   postgres_data:
