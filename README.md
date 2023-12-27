@@ -7,12 +7,12 @@ To run locally you need docker and docker-compose. Installation Instructions
 - Windows https://docs.docker.com/docker-for-windows/install/
 
 ###### docker-compose
-- Выбрать подходящую ОС https://docs.docker.com/compose/install/#install-compose 
+- Choose the right OS https://docs.docker.com/compose/install/#install-compose 
 
 #### Next, launch the container from the root folder
 docker compose up -d
 
 
-#### After launch, log in through the browser to http://localhost:5137/ 
+#### After launch, log in through the browser to http://localhost:5173/ 
 
 
