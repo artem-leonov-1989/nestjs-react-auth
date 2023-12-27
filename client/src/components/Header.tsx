@@ -1,9 +1,22 @@
 import {FC} from "react"
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import { FaRadiationAlt, FaSignOutAlt } from "react-icons/fa";
+import {useAuth} from "../hooks/useAuth.ts";
+import {useAppDispatch} from "../store/hooks.ts";
+import {logout} from "../store/user/userSlice.ts";
+import {removeTokenFromLocalStorage} from "../helpers/localstorage.helper.ts";
+import {toast} from "react-toastify";
 
 const Header: FC = () => {
-    const isAuth = false
+    const isAuth = useAuth()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const logoutHandler = () => {
+        dispatch(logout())
+        removeTokenFromLocalStorage('access_token')
+        toast.success('You logged out')
+        navigate('/')
+    }
     return (
         <header className='flex items-center bg-slate-800 p-4 shadow-sm backdrop-blur-sm'>
             <Link to="/">
@@ -21,7 +34,7 @@ const Header: FC = () => {
             }
             {
                 isAuth ? (
-                    <button className='btn btn-red'>
+                    <button className='btn btn-red' onClick={logoutHandler}>
                         <span>Log Out</span>
                         <FaSignOutAlt />
                     </button>
